@@ -3,7 +3,7 @@
 <% end %>
 
 <h1>Your Pragmatic Catalog</h1>
-<% if @views > 5 %><p>This is your visit number <%= @views %></p>s<% end %>
+<% if @views > 5 %><p>This is your visit number <%= @views %></p><% end %>
 
 <% cache ['store', Product.latest] do %>
 	<% @products.each do |product| %>

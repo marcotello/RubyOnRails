@@ -7,8 +7,9 @@ class LineItemsControllerTest < ActionController::TestCase
 
   test "should get index" do
     get :index
-    assert_response :success
-    assert_not_nil assigns(:line_items)
+    #assert_response :success
+    #assert_not_nil assigns(:line_items)
+    assert_redirected_to store_path
   end
 
   test "should get new" do
@@ -26,7 +27,8 @@ class LineItemsControllerTest < ActionController::TestCase
 
   test "should show line_item" do
     get :show, id: @line_item
-    assert_response :success
+    #assert_response :success
+    assert_redirected_to store_path
   end
 
   test "should get edit" do
@@ -35,7 +37,7 @@ class LineItemsControllerTest < ActionController::TestCase
   end
 
   test "should update line_item" do
-    patch :update, id: @line_item, line_item: { cart_id: @line_item.cart_id, product_id: @line_item.product_id }
+    patch :update, id: @line_item, line_item: { product_id: @line_item.product_id }
     assert_redirected_to line_item_path(assigns(:line_item))
   end
 
