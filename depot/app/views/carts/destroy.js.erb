@@ -1,0 +1,5 @@
+$('#cart tr').not('.total_line').remove();
+$('#cart').hide('blind', 1000);
+if($('body').attr('class') == 'orders'){
+	window.location.replace("<%= store_url %>");
+}

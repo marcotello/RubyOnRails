@@ -1,0 +1,37 @@
+<h1>Buyed Products</h1>
+<br />
+<p>This is the list of buyed products</p>
+
+<% @product.orders.each do |order| %>
+
+<hr />
+<br />
+<h3>Order <%= order.id %></h3>
+<p>Shipped to <%= order.address %> </p>
+<table>
+	<tr>
+		<th>Product</th>
+		<th>Quantity</th>
+		<th>Tdtal Priced<th>
+	</tr>
+
+	<% order.line_items.each do |item| %>
+
+	<tr>
+		<td><%= item.product.title %></td>
+		<td><%= item.quantity %></td>
+		<td><%= number_to_currency(item.total_price) %></td>
+	</tr>
+
+	<% end %>
+	
+	<tr>
+		<td >Total</td>
+		<td><%= number_to_currency(order.line_items.map(&:total_price).sum) %></td>
+	</tr>
+
+</table>
+<p>Paid by: <%= order.pay_type %></p>
+<p>Order by: <%= order.name %>, <%= order.email %></p>
+<% end %>
+<br />
