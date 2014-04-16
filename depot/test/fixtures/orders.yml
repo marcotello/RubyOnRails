@@ -2,12 +2,12 @@
 
 one:
   name: Dave Thomas
-  address: MyText
+  address: No se mi direccion
   email: dave@example.org
-  pay_type: Check
+  payment_type_id: 2
 
 two:
-  name: MyString
-  address: MyText
-  email: MyString
-  pay_type: MyString
+  name: Johan Nesburg
+  address: Calle 13
+  email: a@a.com
+  payment_type_id: 1
