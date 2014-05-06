@@ -6,6 +6,7 @@ class Order < ActiveRecord::Base
 
 	validates :name, :address, :email, presence: true
 	validates :payment_type_id, presence: { message: 'is not selected' }
+	validates_presence_of :shipping_date, :if => :shipping_date_required?
 	#validate :payment_type_id, inclusion: { in: 1..3 }
 	#validates :payment_type_id, numericality: { greater_than: 0, message: 'is not selected' }
 	#validates_associated :payment_type
@@ -16,5 +17,9 @@ class Order < ActiveRecord::Base
 			item.cart_id = nil
 			line_items << item
 		end
+	end
+
+	def shipping_date_required?
+		self.id.present?
 	end
 end

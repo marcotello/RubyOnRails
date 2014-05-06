@@ -7,6 +7,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 Product.delete_all
 PaymentType.delete_all
+User.delete_all
 Product.create!(title: 'CoffeeScript',
   description: 
     %{<p>
@@ -42,6 +43,12 @@ Product.create!(title: 'Rails Test Prescriptions',
       </p>},
   image_url: 'rtp.jpg',
   price: 34.95)
+
+#Creating Payment Types
 PaymentType.create( name: 'Check')
 PaymentType.create( name: 'Credit card')
 PaymentType.create( name: 'Purchase order')
+
+#Creating an Admin User
+#User.create(:name 'mtello', BCrypt::Password.create "zasxdcfv")
+User.create(:name 'mtello', :password "zasxdcfv", :password_confirmation "zasxdcfv")

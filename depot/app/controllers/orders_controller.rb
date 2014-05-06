@@ -1,8 +1,12 @@
 class OrdersController < ApplicationController
   include CurrentCart
 
+  skip_before_action :authorize, only: [:new, :create]
+
   before_action :set_cart, only: [:new, :create]
   before_action :set_order, only: [:show, :edit, :update, :destroy]
+
+  rescue_from ActiveRecord::RecordNotFound, with: :invalid_order
 
   # GET /orders
   # GET /orders.json
@@ -36,7 +40,7 @@ class OrdersController < ApplicationController
     #raise an error with the params
     #raise order_params.inspect
     #  logger.error "*******************     Attempt to save a balnk payment method #{params[:payment_type_id].present?}"
-    @order = Order.new(order_params)
+    @order = Order.new(order_params false)
     @order.add_new_line_items_from_cart(@cart)
 
     respond_to do |format|
@@ -48,7 +52,7 @@ class OrdersController < ApplicationController
         #Sending the Confirmation Email
         OrderNotifier.received(@order).deliver
 
-        format.html { redirect_to store_url, notice: 'Thank you for your order.' }
+        format.html { redirect_to store_url, notice: I18n.t('.thanks') }
         format.json { render action: 'show', status: :created, location: @order }
       else
         format.html { render action: 'new' }
@@ -62,6 +66,10 @@ class OrdersController < ApplicationController
   def update
     respond_to do |format|
       if @order.update(order_params)
+
+        #Sending the Shipment Confirmation Email
+        OrderNotifier.shipped(@order).deliver
+
         format.html { redirect_to @order, notice: 'Order was successfully updated.' }
         format.json { head :no_content }
       else
@@ -87,8 +95,21 @@ class OrdersController < ApplicationController
       @order = Order.find(params[:id])
     end
 
+    #Rescue from error 
+    def invalid_order
+      error = "Attempt to access invalid order with the order_id = #{params[:id]}"
+      logger.error error
+      #ErrorNotifier.raised(error, controller.controller_name, controller.action_name).deliver
+      ErrorNotifier.raised(error, params[:controller], params[:action]).deliver
+      redirect_to store_url, notice: 'Invalid Order'
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
-    def order_params
-      params.require(:order).permit(:name, :address, :email, :payment_type_id)
+    def order_params(shipping_date_permited=true)
+      if shipping_date_permited
+        params.require(:order).permit(:name, :address, :email, :payment_type_id, :shipping_date)
+      else
+        params.require(:order).permit(:name, :address, :email, :payment_type_id)
+      end
     end
   end

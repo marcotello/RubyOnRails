@@ -5,9 +5,18 @@ one:
   address: No se mi direccion
   email: dave@example.org
   payment_type_id: 2
+  shipping_date: 2014-04-20
 
 two:
   name: Johan Nesburg
   address: Calle 13
   email: a@a.com
   payment_type_id: 1
+  shipping_date: 2014-04-19
+
+order_to_ship:
+  name: Marco Tello
+  address: Sta Barbara 30
+  email: a@a.com
+  payment_type_id: 1
+  shipping_date: 

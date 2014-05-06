@@ -19,6 +19,11 @@
 	color: #282;
 	text-align: center;
 	
+	.locale{
+		float: right;
+		margin: -0.25em 0.1em;
+	}
+
 	img {
 		float: left;
 	}
@@ -54,26 +59,30 @@
 				}
 
 				form {
-					label {
-						width: 5em;
-						float: left;
-						text-align: right;
-						padding-top: 0.2em;
-						margin-right: 0.1em;
-						display: block;
-					}
+					.field{
+						margin-bottom: 1.5em;
+						label {
+							width: 8em;
+							float: left;
+							text-align: right;
+							padding-top: 0.2em;
+							margin-right: 2em;
+							//display: inline;
+						}
 
-					select, textarea, input {
-						margin-left: 0.5em;
-					}
-					
-					.submit {
-						margin-left: 4em;
-					}
+						select, textarea, input {
+							margin-left: 0.5em;
+							background: #ffffff;
+						}
+						
+						.submit {
+							margin-left: 4em;
+						}
 
-					br {
-						display: none
-					}		
+						br {
+							display: none
+						}		
+					}
 				}
 			}
 		}

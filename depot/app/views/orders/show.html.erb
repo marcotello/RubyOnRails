@@ -20,5 +20,10 @@
   <%= @order.payment_type.try(:name) %>
 </p>
 
+<p>
+  <strong>Shipping Date:</strong>
+  <%= @order.shipping_date %>
+</p>
+
 <%= link_to 'Edit', edit_order_path(@order) %> |
 <%= link_to 'Back', orders_path %>

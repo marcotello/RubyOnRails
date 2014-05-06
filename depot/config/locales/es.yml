@@ -1,0 +1,63 @@
+es:
+  layouts:
+    application:
+      title: Publicaciones Pragmatic
+      home: Inicio
+      questions: Preguntas
+      news: Noticias
+      contact: Contacto
+
+  store:
+    index:
+      title_html: Nuestros Productos
+      visit_html: Esta es tu visita numero 
+      add_html: Añadir al Carrito
+
+  carts:
+    cart:
+      title: Carrito de Compras
+      checkout: Pagar
+      empty: Vaciar Carrito
+
+  number:
+    currency:
+      format:
+        unit: $US
+        precision: 2
+        separator: ","
+        delimiter: .
+        format: "%n&nbsp;%u"
+
+  orders:
+    new:
+      legend: Por favor introduzca sus datos
+    form:
+      name: Nombre
+      address_html: Dorecci&oacute;n
+      email: E-mail
+      payment_type: Forma de Pago
+      pay_prompt_html: Selecccione un m&eacute;todo de pago
+      submit: Realizar Pedido
+
+  activerecord:
+    models:
+      order: pedido
+    attibutes:
+      order:
+        name: Nombre
+        address: "Direcci&oacute;n"
+        email: E-mail
+        payment_type: Forma de Pago
+    errors:
+      messages:
+        inclusion: no est&aacute; incluido en la lista
+        blank: no puede quedar en blanco
+
+  errors:
+    template:
+      body: "hay problemas con los siguientes campos:"
+      header:
+        one: "1 error ha impedido que este %{model} se guarde"
+        other: "%{count} errores han impedido que este %{model} se guarde"
+
+  thanks: "Gracias por su compra."

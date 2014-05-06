@@ -1,5 +1,10 @@
 class ProductsController < ApplicationController
+
+  skip_before_action :authorize, only: [:who_bought]
+
   before_action :set_product, only: [:show, :edit, :update, :destroy]
+
+  before_action :basic_http_authentication, only: [:who_bought]
 
   rescue_from ActiveRecord::RecordNotFound, with: :invalid_product
 
@@ -92,5 +97,14 @@ class ProductsController < ApplicationController
     def invalid_product
       logger.error "Attempt to access to an invalid product #{params[:id]}"
       redirect_to store_url, notice: 'Invalid product'
+    end
+
+    def basic_http_authentication
+      authenticate_or_request_with_http_basic do |username, password|
+        #username == "foo" && password == "bar"
+        #user = User.find_by(id: session[:user_id])
+        user = User.authenticate(username, password)
+        user.present?
+      end
     end
   end

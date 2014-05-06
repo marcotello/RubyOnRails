@@ -1,33 +1,44 @@
 <%= form_for(@order) do |f| %>
   <% if @order.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@order.errors.count, "error") %> prohibited this order from being saved:</h2>
+      <h2><%= raw t('errors.template.header', count: @order.errors.count, model: t('activerecord.models.order')) %>.</h2>
+      <p><%= t('errors.template.body') %></p>
 
       <ul>
       <% @order.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+        <li><%= raw msg %></li>
       <% end %>
       </ul>
     </div>
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br>
+    <%= f.label :name, t('.name') %><br>
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :address %><br>
+    <%= f.label :address, t('.address_html') %><br>
     <%= f.text_area :address %>
   </div>
   <div class="field">
-    <%= f.label :email %><br>
+    <%= f.label :email, t('.email') %><br>
     <%= f.email_field :email %>
   </div>
   <div class="field">
-    <%= f.label :payment_type_id %><br>
-    <%= f.collection_select(:payment_type_id, PaymentType.all, :id, :name, include_blank: "Select a payment method") %>
+    <%= f.label :payment_type_id, t('.payment_type') %><br>
+    <%= f.collection_select(:payment_type_id, PaymentType.all, :id, :name, include_blank: t('.pay_prompt_html') ) %>
   </div>
+  <% unless f.object.id.nil? %>
+    <div class="field">
+      <%= f.label :shipping_date %><br>
+      <%= f.date_field :shipping_date, min: Time.zone.today.yesterday %>
+    </div>
+  <% end %>
   <div class="actions">
-    <%= f.submit 'Place Order'%>
+    <% if f.object.id.nil? %>
+        <%= f.submit t('.submit') %>
+    <% else %>
+        <%= f.submit 'Edit Order' %>
+    <% end %>
   </div>
 <% end %>
